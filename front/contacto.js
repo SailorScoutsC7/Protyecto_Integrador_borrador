@@ -47,7 +47,7 @@ function validarForm(nombre, email, telefono, mensaje) {
 
         registros.push(formulario);
         localStorage.setItem("Formularios", JSON.stringify(registros));
-        sendEmail();
+        sendEmail(formulario);
         nombre = "";
         email = "";
         telefono = "";
@@ -56,9 +56,22 @@ function validarForm(nombre, email, telefono, mensaje) {
     console.log(correcto);
     return correcto;
 }
-
-function sendEmail() {
+//Comentario
+function sendEmail(formulario) {
     Email.send({
+        Host: "smtp.gmail.com",
+        Username: "sailor.scoutsc7@gmail.com",
+        Password: "generation7",
+        To: 'sailor.scoutsc7@gmail.com',
+        From: "sailor.scoutsc7@gmail.com",
+        Subject: "Prueba1",
+        Body: `Nombre: ${formulario.nombre} \nEmail: ${formulario.email} \nteléfono: ${formulario.telefono} \nMensaje: ${formulario.mensaje}`
+    }).then(
+        message => alert("Correo enviado correctamente!")
+    );
+}
+
+/*Email.send({
         Host: "smtp.mailtrap.io",
         Username: "331a9965e85259",
         Password: "ea9496b5bc4d5d",
@@ -66,17 +79,4 @@ function sendEmail() {
         From: "sailor.scoutsc7@gmail.com",
         Subject: "Prueba1",
         Body: formulario
-    }).then(
-        message => alert(message)
-    );
-}
-
-/*Email.send({
-        Host: ".............",
-        Username: "...............",
-        Password: "..............",
-        To: "...........",
-        From: email,
-        Subject: "Contact Us Query By the Customer",
-        Body: msg + "<br>" + name + "<br>" + phone
     }).then(msg => alert("The email successfully sent")) */
